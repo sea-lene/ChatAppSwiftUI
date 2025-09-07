@@ -1,18 +1,21 @@
 //
-//  LoginView.swift
+//  SignUpView.swift
 //  ChatApp
 //
-//  Created by Suhanee on 31/08/25.
+//  Created by Suhanee on 07/09/25.
 //
 
 import SwiftUI
 
-struct LoginView: View {
+struct SignUpView: View {
     
     @State private var email: String = ""
+    @State private var nickName: String = ""
     @State private var password: String = ""
     @FocusState private var isEmailFocused: Bool
     @FocusState private var isPswFocused: Bool
+    @FocusState private var isNameFocused: Bool
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -25,12 +28,12 @@ struct LoginView: View {
                     .foregroundColor(.secondary300)
                     .padding(.vertical, 16)
                 
-                Text("Welocome back !")
+                Text("Yo , Looking for me ?")
                     .font(.title)
                     .foregroundColor(.secondary500)
                     .padding(.vertical, 4)
                 
-                Text("I missed you! Sign in to send me soaring with a message!")
+                Text("Sign up quick and I'll wing your sweet messages to the right one ; )")
                     .font(.subheadline)
                     .foregroundColor(.secondary300)
                     .multilineTextAlignment(.center)
@@ -66,6 +69,35 @@ struct LoginView: View {
                             .background(.white)
                     )
                     
+                    
+                    ZStack (alignment: .top){
+                        
+                        HStack (spacing: 8 ){
+                            Image(systemName: "person")
+                                .foregroundColor(.tertiary500)
+                            
+                            TextField( "", text: $nickName)
+                                .textContentType(.emailAddress)
+                                .focused($isNameFocused)
+                                .animation(.easeInOut(duration: 0.2), value: isNameFocused)
+                        }
+                        .padding(12)
+                        
+                        HStack{
+                            Text(" Nick name * ")
+                                .foregroundColor(.secondary)
+                                .background()
+                                .padding(.top, -12)
+                                .padding(.leading, 12)
+                            Spacer()
+                        }
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke( isNameFocused ? .primary500 : .tertiary200, lineWidth: 2)
+                            .background(.white)
+                    )
+                    
                     ZStack (alignment: .top){
                         HStack (spacing: 8 ){
                             Image(systemName: "lock")
@@ -98,29 +130,15 @@ struct LoginView: View {
                 }
                 .padding()
                 
-                //forgot password
+
+                //singup button
                 Button{
                     
                 }label: {
-                    Text("forgot password?")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary500)
-                        .clipShape(Rectangle())
-                        .scaledToFill()
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing, 16)
-            
-                
-                //login button
-                Button{
-                    
-                }label: {
-                        Text("Login")
+                        Text("Sign up")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(Color.primary500)
+                        .background(Color.primary300)
                         .cornerRadius(8)
                         .padding()
                     
@@ -129,12 +147,12 @@ struct LoginView: View {
                 Spacer()
                 
                 Divider()
-                //sign up link
-                NavigationLink{
-                    SignUpView()
-                        .navigationBarBackButtonHidden()
+                
+                //back to login view
+                Button{
+                    dismiss()
                 }label: {
-                    Text("Don't have an account? Sign Up")
+                    Text("Already have an account? Sign In")
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary400)
@@ -145,7 +163,6 @@ struct LoginView: View {
         }
     }
 }
-
 #Preview {
-    LoginView()
+    SignUpView()
 }

@@ -13,9 +13,7 @@ struct ChatAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            LoginView()
+            SplashScreenView()
         }
     }
 }
